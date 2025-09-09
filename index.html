@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Earth</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <header>
+        <div class="navbar bg-[#198b43] shadow-sm">
+            <div class="navbar-start">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h8m-8 6h16" />
+                        </svg>
+                    </div>
+                    <ul tabindex="0"
+                        class="p-2 mt-3 text-white bg-green-700 menu menu-sm dropdown-content rounded-box z-1 w-52">
+                        <li><a class="transition hover:text-yellow-300">About</a></li>
+                        <li><a class="transition hover:text-yellow-300">Gallery</a></li>
+                        <li><a class="transition hover:text-yellow-300">Plant a Tree</a></li>
+                    </ul>
+                </div>
+                <a href="#"
+                    class="flex items-center gap-2 text-xl font-bold text-white transition cursor-pointer hover:text-yellow-300">
+                    <span>Green Earth</span>
+                </a>
+            </div>
+            <div class="hidden text-white navbar-center lg:flex">
+                <ul class="px-1 menu menu-horizontal">
+                    <li><a href="#about" class="transition hover:text-yellow-300">About</a></li>
+                    <li><a class="transition hover:text-yellow-300">Gallery</a></li>
+                    <li><a href="#plant" class="transition hover:text-yellow-300">Plant a Tree</a></li>
+                </ul>
+            </div>
+            <div class="navbar-end">
+                <a class="text-white transition bg-yellow-500 rounded-full btn hover:bg-yellow-500">
+                    Plant a Tree
+                </a>
+            </div>
+        </div>
+
+    </header>
+
+    <section class="relative px-6 py-16 overflow-hidden bg-green-100">
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl font-bold text-gray-800 sm:text-4xl lg:text-5xl">
+                Plant a Tree, Grow a Future
+            </h1>
+            <p class="max-w-2xl mx-auto mt-4 text-gray-600">
+                Join our mission to plant 1 million trees and make the Earth greener for future generations.
+            </p>
+            <div class="mt-6">
+                <a href="#plantin" class="px-6 text-black bg-yellow-400 rounded-full btn hover:bg-yellow-500">
+                    Get Involved
+                </a>
+            </div>
+        </div>
+        <img src="./assets/hero-leaf1.png" alt="Leaf Left"
+            class="absolute bottom-0 left-0 w-32 sm:w-48 lg:w-72 opacity-90">
+        <img src="./assets/hero-leaf2.png" alt="Leaf Right"
+            class="absolute bottom-0 right-0 w-32 sm:w-48 lg:w-72 opacity-90">
+    </section>
+</body>
+</html>
