@@ -1,3 +1,24 @@
+const displayModal = (plant) => {
+  const modalContent = document.getElementById("details-container");
+
+  modalContent.innerHTML = `
+    <h2 class="mb-2 text-xl font-bold">${plant.name}</h2>
+    <img src="${plant.image}" alt="${plant.name}" 
+         class="object-cover w-full mb-3 rounded-lg h-60" />
+
+    <p><strong>Category:</strong> ${plant.category}</p>
+    <p><strong>Price:</strong> ৳${plant.price}</p>
+    <p class="mt-2 text-gray-600">${plant.description}</p>
+  `;
+
+  document.getElementById("plant_modal").showModal();
+};
+
+const loadingModal = async (id) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/plant/${id}`);
+    const details = await res.json();
+    displayModal(details.plants);
+};
 
 const displayPlants = (plants) => {
     const container = document.getElementById("plants-container");
@@ -17,11 +38,11 @@ const displayPlants = (plants) => {
     <div class="product-image h-60 w-full bg-gray-200 rounded-lg mb-2">
       <img src="${plant.image}" alt="${plant.name}" class="w-full h-full object-cover rounded-lg" />
     </div>
-    <h4 onclick="loadPlantDetails(${plant.id})" 
+    <h4 onclick="loadingModal(${plant.id})" 
         class="text-lg font-bold cursor-pointer text-green-700 ">
       ${plant.name}
     </h4>
-    <p class="text-sm text-gray-600">${plant.description.slice(0, 80)}...</p>
+    <p class="text-sm text-gray-600">${plant.description.slice(0,70)}...</p>
     
     <div class="flex items-center justify-between mt-2">
       <span class="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded">
@@ -40,7 +61,6 @@ const displayPlants = (plants) => {
 
 };
 
-
 const loadingAllPlants = async (categories) => {
     manageSpinner(true);
     allPlants = [];
@@ -50,6 +70,7 @@ const loadingAllPlants = async (categories) => {
         allPlants = allPlants.concat(dataC.plants);
     }
     displayPlants(allPlants.slice(0, 6));
+    //console.log(allPlants);
     manageSpinner(false);
 };
 const showAllPlants = () => {
@@ -58,6 +79,29 @@ const showAllPlants = () => {
     displayPlants(allPlants);
 };
 
+const manageSpinner = (status) => {
+    document.getElementById("spinner").classList.toggle("hidden", !status);
+    document.getElementById("plants-container").classList.toggle("hidden", status);
+};
+
+const removeActive = () => {
+    document.querySelectorAll(".category-btn")
+        .forEach(btn => btn.classList.remove("bg-green-700", "text-white"));
+};
+
+
+const loadingPlantsByCategory = (id) => {
+  manageSpinner(true);
+  removeActive();
+  document.getElementById(`cat-btn-${id}`).classList.add("bg-green-700", "text-white");
+  const categoryName = document.getElementById(`cat-btn-${id}`).innerText.trim();
+
+  const filtered = allPlants.filter(p => p.category === categoryName);
+
+  displayPlants(filtered);
+
+  setTimeout(() => manageSpinner(false), 300);
+};
 
 const categoryButtons = (categories) => {
     const allButton = `
@@ -71,7 +115,7 @@ const categoryButtons = (categories) => {
     const categoryButton = categories.map(
         (cat) => `
       <li>
-        <button id="cat-btn-${cat.id}" onclick="loadPlantsByCategory(${cat.id})" 
+        <button id="cat-btn-${cat.id}" onclick="loadingPlantsByCategory(${cat.id})" 
           class="category-btn w-full text-left px-3 py-2 rounded hover:bg-green-100">
           ${cat.category_name}
         </button>
