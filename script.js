@@ -140,4 +140,40 @@ const loadingCategory = async () => {
     await loadingAllPlants(categories);
 };
 
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const addToCart = (name, price) => {
+    cart.push({ name, price });
+    saveCart();
+    updatingCart();
+};
+
+const removeFromCart = (i) => {
+    cart.splice(i, 1);
+    saveCart();
+    updatingCart();
+};
+
+const updatingCart = () => {
+    const cartBox = document.getElementById("cart-items");
+    cartBox.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, i) => {
+        total += item.price;
+        cartBox.innerHTML += `
+      <li class="flex justify-between bg-green-100 items-center px-5 rounded-xl py-2">
+        <span>${item.name} <br/>৳ ${item.price}</span>
+        <button onclick="removeFromCart(${i})" class="text-black text-xl">❌</button>
+      </li>`;
+    });
+
+    document.getElementById("cart-total").innerText = "৳" + total;
+};
+
+const saveCart = () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+};
+
 loadingCategory();
+updatingCart();
